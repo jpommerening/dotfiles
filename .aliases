@@ -22,13 +22,6 @@ alias ll="ls -l ${colorflag}"
 # List all files colorized in long format, including dot files
 alias la="ls -la ${colorflag}"
 
-# Always use color output for `ls`
-if [[ "$OSTYPE" =~ ^darwin ]]; then
-	alias ls="command ls -G"
-else
-	alias ls="command ls --color"
-fi
-
 # Undo a `git push`
 alias unpush="git push -f origin HEAD^:master"
 
