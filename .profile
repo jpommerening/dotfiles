@@ -89,7 +89,31 @@ __cvs_repo () {
   cat CVS/Root 2>/dev/null
 }
 __cvs_info () {
-  :
+  local branch="`cat CVS/Tag 2>/dev/null || echo "HEAD"`"
+  local status="`cvs -qn update | sed 's/^\([?A-Z]\).*$/\1/p;d' | sort -u`"
+  local output=""
+
+  test -z "${branch}" -a -z "${status}" && return
+
+  case "${branch}" in
+    "HEAD") output="${__master_icon} ${branch}" ;;
+    "T"*)   output="${__branch_icon} ${branch#N}" ;;
+    "N"*)   output="${__detach_icon} ${branch#T}" ;;
+  esac
+
+  case "${status}" in
+    *C*)     output="${output}${__status_conflict_icon}" ;;
+    *A*D*M*) output="${output}${__status_addrm_icon}" ;;
+    *A*D*)   output="${output}${__status_addrm_icon}" ;;
+    *A*M*)   output="${output}${__status_add_icon}" ;;
+    *D*M*)   output="${output}${__status_rm_icon}" ;;
+    *A*)     output="${output}${__status_add_icon}" ;;
+    *D*)     output="${output}${__status_rm_icon}" ;;
+    *M*)     output="${output}${__status_add_icon}" ;;
+    *?*)     output="${output}${__status_unknown_icon}" ;;
+  esac
+
+  echo ${output}
 }
 
 __svn_repo () {
@@ -130,18 +154,18 @@ __svn_info () {
 __prompt () {
   PROMPT_OLD_REPO="${PROMPT_REPO}"
 
-  for PROMPT_SCM in git svn ; do
+  for PROMPT_SCM in git cvs svn ; do
     PROMPT_REPO="`__${PROMPT_SCM}_repo`" && break
   done
 
   if ! test "${PROMPT_REPO}" = "${PROMPT_OLD_REPO}"; then
-    if test -n "${PROMPT_REPO}" ; then
-      echo -e "\033[${__prompt_repo_color}morigin: ${PROMPT_REPO}\033[0m"
-      PROMPT_INFO="`__${PROMPT_SCM}_info`"
-      PROMPT_INFO="\[\033[${__prompt_info_color}m\] ${PROMPT_INFO}"
-    else
-      PROMPT_INFO=""
-    fi
+    echo -e "\033[${__prompt_repo_color}morigin: ${PROMPT_REPO}\033[0m"
+  fi
+  if test -n "${PROMPT_REPO}" ; then
+    PROMPT_INFO="`__${PROMPT_SCM}_info`"
+    PROMPT_INFO="\[\033[${__prompt_info_color}m\] ${PROMPT_INFO}"
+  else
+    PROMPT_INFO=""
   fi
 
   local sepc="\[\033[0m\033[${__prompt_sep_color}m\]"
