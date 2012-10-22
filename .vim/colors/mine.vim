@@ -26,7 +26,7 @@ hi Operator    ctermfg=15
 hi Ignore      cterm=bold
 hi Error       term=reverse  ctermbg=204 ctermfg=235
 hi Todo        term=standout ctermbg=125  ctermfg=0
-hi LineNr      ctermfg=237
+hi LineNr      ctermfg=240
 hi Folded      term=standout ctermbg=242 ctermfg=235
 
 " Common groups that link to default highlighting.

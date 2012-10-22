@@ -1,11 +1,11 @@
-test -z "${PROFILEREAD}" || return
+#!/bin/sh
 
 __prompt_user_color="38;5;242"
 __prompt_host_color="38;5;141"
 __prompt_path_color="38;5;135"
-__prompt_repo_color="38;5;238"
-__prompt_info_color="38;5;238"
-__prompt_sep_color="38;5;238"
+__prompt_repo_color="38;5;240"
+__prompt_info_color="38;5;240"
+__prompt_sep_color="38;5;240"
 
 __archive_color="38;5;202"
 __image_color="38;5;115"
@@ -17,24 +17,42 @@ __sourcecode_c_color="38;5;201"
 __sourcecode_java_color="38;5;206"
 __sourcecode_php_color="38;5;211"
 
-__master_icon=→
-__branch_icon=↳
-__detach_icon=✗
+__isutf8 () {
+  ( locale | grep -qi "UTF[-]\?8" )
+}
 
-__status_conflict_icon=⚠
-__status_addrm_icon=±
-__status_add_icon=⁺
-__status_rm_icon=₋
-__status_unknown_icon=⁇
+__is256color () {
+  return 0
+}
 
-for dotfile in .aliases .ls ; do
+for dotfile in .aliases .ls; do
   if test -f "${HOME}/${dotfile}" ; then
     . "${HOME}/${dotfile}"
   fi
 done
 
-export PROMPT_DIRTRIM="2"
-export PROMPT_COMMAND="__prompt"
+
+if __isutf8 ; then
+  __master_icon=→
+  __branch_icon=↳
+  __detach_icon=✗
+
+  __status_conflict_icon=⚠
+  __status_addrm_icon=±
+  __status_add_icon=⁺
+  __status_rm_icon=₋
+  __status_unknown_icon=⁇
+else
+  __master_icon=-
+  __branch_icon=¬
+  __detach_icon=x
+
+  __status_conflict_icon=!
+  __status_addrm_icon=±
+  __status_add_icon=+
+  __status_rm_icon=-
+  __status_unknown_icon=?
+fi
 
 __git_repo () {
   git config --get remote.origin.url 2>/dev/null
@@ -137,4 +155,11 @@ __prompt () {
 }
 
 export COLUMNS
+export PROMPT_DIRTRIM="2"
+export PROMPT_COMMAND="__prompt"
+export MAN_POSIXLY_CORRECT="yes. please don't bother me with your questions."
+export TERM="xterm-256color"
 
+if test -x "`which "xtermcontrol" 2>/dev/null`"; then
+   xtermcontrol --bg="#3d3c37" --fg="#e8e5dd"
+fi
