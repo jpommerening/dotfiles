@@ -1,4 +1,7 @@
+set encoding=utf-8 nobomb
+
 " Enable syntax highlighting
+set term=xterm-256color
 syntax on
 colors mine
 
@@ -6,7 +9,7 @@ colors mine
 set nocompatible
 
 " Use UTF-8 without BOM
-set encoding=utf-8 nobomb
+set fileencodings=ucs-bom,utf-8,latin1
 " Don’t add empty newlines at the end of files
 set binary
 set noeol
@@ -76,3 +79,4 @@ set title
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
+set encoding=default
