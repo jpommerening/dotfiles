@@ -1,5 +1,3 @@
-set encoding=utf-8 nobomb
-
 " Enable syntax highlighting
 set term=xterm-256color
 syntax on
@@ -10,7 +8,7 @@ set nocompatible
 
 " Use UTF-8 without BOM
 set fileencodings=ucs-bom,utf-8,latin1
-" Don’t add empty newlines at the end of files
+" Do not add empty newlines at the end of files
 set binary
 set noeol
 
@@ -19,15 +17,23 @@ set formatoptions=tcqw
 set autoindent
 set smartindent " automaticall indent according to block
 
-" Make tabs as wide as two spaces
-set tabstop=2
+" Check environment variable
+if strlen($INDENT)
+  " .. to adjust tabbing.
+  exe printf("set tabstop=%i softtabstop=%i shiftwidth=%i", $INDENT, $INDENT, $INDENT)
+else
+  " Make tabs as wide as two spaces
+  set tabstop=2 softtabstop=2 shiftwidth=2
+endif
 " use spaces instead of tabs
 set expandtab
-" Show “invisible” characters
-set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
-set showbreak=↪
-set list
 
+if &encoding == 'utf-8'
+  " Show invisible characters
+  set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+  set showbreak=↪
+  set list
+endif
 "folding settings
 set foldmethod=syntax   "fold based on indent
 set foldnestmax=10      "deepest fold is 10 levels
@@ -65,7 +71,7 @@ endif
 " Always show status line
 set laststatus=2
 " Enable mouse in all modes
-set mouse=a
+" set mouse=a
 " Disable error bells
 set noerrorbells
 " Don’t reset cursor to start of line when moving around.

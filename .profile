@@ -90,7 +90,7 @@ __cvs_repo () {
 }
 __cvs_info () {
   local branch="`cat CVS/Tag 2>/dev/null || echo "HEAD"`"
-  local status="`cvs -qn update | sed 's/^\([?A-Z]\).*$/\1/p;d' | sort -u`"
+  local status="`cvs -qn update 2>/dev/null | sed 's/^\([?A-Z]\).*$/\1/p;d' | sort -u`"
   local output=""
 
   test -z "${branch}" -a -z "${status}" && return
@@ -151,6 +151,19 @@ __svn_info () {
   echo ${output}
 }
 
+__prompt_info () {
+  while true ; do
+    if test -n "${PROMPT_REPO}" ; then
+       PROMPT_INFO="\[\033[${__prompt_info_color}m\] `__${PROMPT_SCM}_info`"
+    else
+       PROMPT_INFO=""
+    fi
+    sleep 5
+  done
+}
+
+__prompt_info &
+
 __prompt () {
   PROMPT_OLD_REPO="${PROMPT_REPO}"
 
@@ -158,14 +171,8 @@ __prompt () {
     PROMPT_REPO="`__${PROMPT_SCM}_repo`" && break
   done
 
-  if ! test "${PROMPT_REPO}" = "${PROMPT_OLD_REPO}"; then
+  if ! test -z "${PROMPT_REPO}" -o "${PROMPT_REPO}" = "${PROMPT_OLD_REPO}"; then
     echo -e "\033[${__prompt_repo_color}morigin: ${PROMPT_REPO}\033[0m"
-  fi
-  if test -n "${PROMPT_REPO}" ; then
-    PROMPT_INFO="`__${PROMPT_SCM}_info`"
-    PROMPT_INFO="\[\033[${__prompt_info_color}m\] ${PROMPT_INFO}"
-  else
-    PROMPT_INFO=""
   fi
 
   local sepc="\[\033[0m\033[${__prompt_sep_color}m\]"
