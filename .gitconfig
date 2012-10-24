@@ -11,21 +11,25 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	whitespace = fix,space-before-tab,tab-in-indent,trailing-space
+[color]
+   ui = true
 [color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
+	current = 111 ; blueish
+	local = 220 ; yellowish
+	remote = 108 ; greenish
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
+	meta = 247
+	frag = white bold
+	old = 167
+	new = 41
 [color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
+	added = 41
+	changed = 43
+	untracked = 247
+   deleted = 167
 [merge]
 	log = true
+   tool = vimdiff
 [url "git@github.com:"]
 	insteadOf = "gh:"
 	pushInsteadOf = "github:"
