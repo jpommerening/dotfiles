@@ -190,6 +190,7 @@ export PROMPT_DIRTRIM="2"
 export PROMPT_COMMAND="__prompt"
 export MAN_POSIXLY_CORRECT="yes. please don't bother me with your questions."
 export TERM="xterm-256color"
+export EDITOR="vim"
 
 if test -x "`which "xtermcontrol" 2>/dev/null`"; then
    xtermcontrol --bg="#3d3c37" --fg="#e8e5dd"

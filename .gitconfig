@@ -26,7 +26,6 @@
 	added = 41
 	changed = 43
 	untracked = 247
-   deleted = 167
 [merge]
 	log = true
    tool = vimdiff

@@ -1,15 +1,19 @@
 " Enable syntax highlighting
 set term=xterm-256color
 syntax on
+filetype on
 colors mine
 
 " Make vim more useful
 set nocompatible
 
+set modeline
+set modelines=5
+
 " Use UTF-8 without BOM
 set fileencodings=ucs-bom,utf-8,latin1
 " Do not add empty newlines at the end of files
-set binary
+" set binary
 set noeol
 
 " Automatically indent (on new line etc.)
@@ -86,3 +90,4 @@ set title
 set scrolloff=3
 
 set encoding=default
+
