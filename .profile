@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ -f "${HOME}/.host" ]; then
+   . "${HOME}/.host" || return
+fi
+
 __prompt_user_color="38;5;242"
 __prompt_host_color="38;5;141"
 __prompt_path_color="38;5;135"
