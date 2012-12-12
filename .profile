@@ -29,7 +29,7 @@ __is256color () {
   return 0
 }
 
-for dotfile in .aliases .ls; do
+for dotfile in .aliases .ls .machine; do
   if test -f "${HOME}/${dotfile}" ; then
     . "${HOME}/${dotfile}"
   fi
