@@ -90,11 +90,6 @@ if !exists(":JSLintToggle")
     \                  echo 'JSLint ' . ['enabled', 'disabled'][b:jslint_disabled] . '.'
 endif
 
-noremap <buffer><silent> dd dd:JSLintUpdate<CR>
-noremap <buffer><silent> dw dw:JSLintUpdate<CR>
-noremap <buffer><silent> u u:JSLintUpdate<CR>
-noremap <buffer><silent> <C-R> <C-R>:JSLintUpdate<CR>
-
 let s:jslintrc_file = expand('~/.jslintrc')
 if filereadable(s:jslintrc_file)
   let s:jslintrc = readfile(s:jslintrc_file)
@@ -143,6 +138,9 @@ endfunction
 
 function! s:JSLint()
   if exists("b:jslint_disabled") && b:jslint_disabled == 1
+    return
+  endif
+  if !(&filetype == "javascript")
     return
   endif
 
