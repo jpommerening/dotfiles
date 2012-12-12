@@ -29,8 +29,10 @@ else
   " Make tabs as wide as two spaces
   set tabstop=2 softtabstop=2 shiftwidth=2
 endif
+
 " use spaces instead of tabs
 set expandtab
+autocmd FileType make setlocal noexpandtab
 
 if &encoding == 'utf-8'
   " Show invisible characters
@@ -74,8 +76,8 @@ endif
 
 " Always show status line
 set laststatus=2
-" Enable mouse in all modes
-" set mouse=a
+" Enable mouse normal and visial mode (not in insert mode!)
+set mouse=nv
 " Disable error bells
 set noerrorbells
 " Don’t reset cursor to start of line when moving around.
