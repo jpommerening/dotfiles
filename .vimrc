@@ -2,6 +2,7 @@
 set term=xterm-256color
 syntax on
 filetype on
+filetype plugin on
 colors mine
 
 " Make vim more useful
