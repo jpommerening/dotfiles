@@ -1,8 +1,12 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 git pull
+GIT_USER="$(git config --get user.name)"
+GIT_EMAIL="$(git config --get user.email)"
 function doIt() {
 	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "sync.sh" --exclude "README.md" -av . ~
+  git config --global user.name "$GIT_USER"
+  git config --global user.email "$GIT_EMAIL"
 }
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
 	doIt
