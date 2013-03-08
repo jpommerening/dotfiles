@@ -34,6 +34,7 @@ endif
 " use spaces instead of tabs
 set expandtab
 autocmd FileType make setlocal noexpandtab
+autocmd FileType markdown setlocal spell
 
 if &encoding == 'utf-8'
   " Show invisible characters
