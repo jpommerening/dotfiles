@@ -1,5 +1,7 @@
 #!/bin/sh
 
+test -z "${PROMPT_INFO_RUN}" || return
+
 if [ -f "${HOME}/.host" ]; then
    . "${HOME}/.host" || return
 fi
@@ -48,11 +50,11 @@ if __isutf8 ; then
   __status_unknown_icon=â‡
 else
   __master_icon=-
-  __branch_icon=Â¬
+  __branch_icon=¬
   __detach_icon=x
 
   __status_conflict_icon=!
-  __status_addrm_icon=Â±
+  __status_addrm_icon=±
   __status_add_icon=+
   __status_rm_icon=-
   __status_unknown_icon=?
@@ -101,8 +103,8 @@ __cvs_info () {
 
   case "${branch}" in
     "HEAD") output="${__master_icon} ${branch}" ;;
-    "T"*)   output="${__branch_icon} ${branch#N}" ;;
-    "N"*)   output="${__detach_icon} ${branch#T}" ;;
+    "T"*)   output="${__branch_icon} ${branch#T}" ;;
+    "N"*)   output="${__detach_icon} ${branch#N}" ;;
   esac
 
   case "${status}" in
@@ -155,46 +157,43 @@ __svn_info () {
   echo ${output}
 }
 
-__prompt_info () {
-  while true ; do
-    if test -n "${PROMPT_REPO}" ; then
-       PROMPT_INFO="\[\033[${__prompt_info_color}m\] `__${PROMPT_SCM}_info`"
-    else
-       PROMPT_INFO=""
-    fi
-    sleep 5
-  done
-}
-
-__prompt_info &
-
 __prompt () {
-  PROMPT_OLD_REPO="${PROMPT_REPO}"
+  if ! test "x$PWD" = "x$PROMPT_OLD_DIR" ; then
+    PROMPT_OLD_REPO="$PROMPT_REPO"
+    PROMPT_OLD_DIR="$PWD"
 
-  for PROMPT_SCM in git cvs svn ; do
-    PROMPT_REPO="`__${PROMPT_SCM}_repo`" && break
-  done
+    for PROMPT_SCM in git cvs svn ; do
+      PROMPT_REPO=`__${PROMPT_SCM}_repo` && break
+    done
+  fi
 
   if ! test -z "${PROMPT_REPO}" -o "${PROMPT_REPO}" = "${PROMPT_OLD_REPO}"; then
     echo -e "\033[${__prompt_repo_color}morigin: ${PROMPT_REPO}\033[0m"
+  fi
+  if test -n "${PROMPT_REPO}" ; then
+    PROMPT_INFO="\[\033[${__prompt_info_color}m\] `__${PROMPT_SCM}_info`"
+  else
+    PROMPT_INFO=""
   fi
 
   local sepc="\[\033[0m\033[${__prompt_sep_color}m\]"
   local reset="\[\033[0m\]"
   local user="\[\033[0m\033[${__prompt_user_color}m\]\u"
   local host="\[\033[${__prompt_host_color}m\]\h"
-  local path="\[\033[${__prompt_path_color}m\]\W"
+  local path="\[\033[${__prompt_path_color}m\]\w"
 
   PS1="${user}${sepc}@${host}${sepc}:${path}${PROMPT_INFO}${sepc} \$ ${reset}"
   PS2="${sepc} > ${reset}"
 }
 
-export COLUMNS
-export PROMPT_DIRTRIM="2"
-export PROMPT_COMMAND="__prompt"
-export MAN_POSIXLY_CORRECT="yes. please don't bother me with your questions."
-export TERM="xterm-256color"
-export EDITOR="vim"
+PROMPT_DIRTRIM="3"
+PROMPT_COMMAND="__prompt"
+MAN_POSIXLY_CORRECT="yes. please don't bother me with your questions."
+TERM="xterm-256color"
+EDITOR="vim"
+
+export PS1 PS2 PROMPT_DIRTRIM PROMPT_COMMAND
+export COLUMNS MAN_POSIXLY_CORRECT TERM EDITOR
 
 if test -x "`which "xtermcontrol" 2>/dev/null`"; then
    xtermcontrol --bg="#3d3c37" --fg="#e8e5dd"

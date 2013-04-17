@@ -40,6 +40,10 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "$method"="lwp-request -m '$method'"
 done
 
-if test -x `which uxterm` ; then
-   alias uxterm=xterm
-fi
+json () { 
+  ( echo "var sys = require('sys');"
+    echo "var obj = $(cat);"
+    echo "sys.puts(JSON.stringify(obj$1));" ) | node
+}
+
+source .z.sh

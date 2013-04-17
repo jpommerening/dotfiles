@@ -49,3 +49,6 @@
 [user]
   name = "Jonas Pommerening"
   email = "jonas@example.com"
+
+[include]
+  path = ".gitconfig.local"
