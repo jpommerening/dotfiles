@@ -95,10 +95,25 @@ set scrolloff=3
 
 set encoding=default
 
+" pathogen
 call pathogen#infect()
 
-map <C-n> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" neocomplcache
+let g:neocomplcache_enable_at_startup=1
+let g:neocomplcache_enable_smart_case=1
+let g:neocomplcache_enable_camel_case_completion=1
 
-let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load $HOME/.vim/bundle/slimv/slime/start-swank.lisp\""' 
+" syntastic
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=0
+let g:syntastic_enable_highlighting=1
+
+" powerline
+if &encoding == 'utf-8'
+   let g:Powerline_symbols='fancy'
+else
+   let g:Powerline_symbols='compatible'
+endif
+
+" let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load $HOME/.vim/bundle/slimv/slime/start-swank.lisp\""' 
 

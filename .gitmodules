@@ -10,3 +10,18 @@
 [submodule ".vim/bundle/slimv"]
 	path = .vim/bundle/slimv
 	url = git://github.com/vim-scripts/slimv.vim.git
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
+[submodule ".vim/bundle/neocomplcache"]
+	path = .vim/bundle/neocomplcache
+	url = git://github.com/Shougo/neocomplcache.git
+[submodule ".vim/bundle/powerline"]
+	path = .vim/bundle/powerline
+	url = git://github.com/Lokaltog/vim-powerline.git
+[submodule ".powerline"]
+	path = .powerline
+	url = git://github.com/Lokaltog/powerline.git
+[submodule ".vim/bundle/supertab"]
+	path = .vim/bundle/supertab
+	url = git://github.com/ervandew/supertab.git
