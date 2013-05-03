@@ -1,6 +1,7 @@
 " Enable syntax highlighting
 set term=xterm-256color
 colors mine
+syntax on
 
 " Make vim more useful
 set nocompatible

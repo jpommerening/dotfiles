@@ -45,5 +45,3 @@ json () {
     echo "var obj = $(cat);"
     echo "sys.puts(JSON.stringify(obj$1));" ) | node
 }
-
-source .z.sh
