@@ -108,12 +108,15 @@ let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=0
 let g:syntastic_enable_highlighting=1
 
-" powerline
-if &encoding == 'utf-8'
-   let g:Powerline_symbols='fancy'
-else
-   let g:Powerline_symbols='compatible'
-endif
-
+" slimv/lisp
+let g:lisp_rainbow=1
 " let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load $HOME/.vim/bundle/slimv/slime/start-swank.lisp\""' 
 
+" powerline
+let g:Powerline_symbols='compatible'
+
+" if &encoding == 'utf-8'
+"   let g:Powerline_symbols='fancy'
+" ele
+"   let g:Powerline_symbols='compatible'
+" endif

@@ -158,8 +158,8 @@ __svn_info () {
 }
 
 __prompt () {
+  PROMPT_OLD_REPO="$PROMPT_REPO"
   if ! test "x$PWD" = "x$PROMPT_OLD_DIR" ; then
-    PROMPT_OLD_REPO="$PROMPT_REPO"
     PROMPT_OLD_DIR="$PWD"
 
     for PROMPT_SCM in git cvs svn ; do
