@@ -1,3 +1,5 @@
+#!/bin/sh
+
 test -z "${PROMPT_INFO_RUN}" || return
 
 __prompt_user_color="38;5;242"
@@ -25,13 +27,6 @@ __is256color () {
   local colors=`tput colors 2>/dev/null`
   test "0$colors" -ge 256
 }
-
-for dotfile in alias ls z; do
-  if test -f "${HOME}/.shell/${dotfile}" ; then
-    . "${HOME}/.shell/${dotfile}"
-  fi
-done
-
 
 if __isutf8 ; then
   __master_icon=→
@@ -184,4 +179,11 @@ __prompt () {
 PROMPT_DIRTRIM="3"
 PROMPT_COMMAND="__prompt"
 
-export PS1 PS2 PROMPT_DIRTRIM PROMPT_COMMAND
+export COLUMNS PS1 PS2 PROMPT_DIRTRIM PROMPT_COMMAND
+
+for dotfile in alias ls z; do
+  if test -f "${HOME}/.shell/${dotfile}" ; then
+    . "${HOME}/.shell/${dotfile}"
+  fi
+done
+

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if test -z "$USER" ; then
   USER="${USER:-$(whoami 2>/dev/null)}"
   USER="${USER:-$(id -un 2>/dev/null)}"
@@ -15,4 +17,4 @@ MAN_POSIXLY_CORRECT="yes. please don't bother me with your questions."
 EDITOR="vim"
 VISUAL="$EDITOR"
 
-export COLUMNS MAN_POSIXLY_CORRECT EDITOR VISUAL
+export MAN_POSIXLY_CORRECT EDITOR VISUAL

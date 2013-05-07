@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if test -x `which defaults 2>/dev/null` ; then
   _locale=`defaults read "NSGlobalDomain" "AppleLocale"`
   if locale -a | grep -q "$_locale" ; then

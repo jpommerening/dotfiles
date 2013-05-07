@@ -1,6 +1,8 @@
+#!/bin/sh
+
 export CLICOLOR=1
 
-export LS_COLORS="$(echo "
+export LS_COLORS=`echo "
 no=00
 fi=00
 di=01;38;5;135
@@ -69,6 +71,6 @@ ex=01;38;5;47
 *.C=${__sourcecode_c_color}
 *.java=${__sourcecode_java_color}
 *.php=${__sourcecode_php_color}
-" | tr "\n" ":")"
+" | tr "\n" ":"`
 
 
