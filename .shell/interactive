@@ -185,7 +185,3 @@ PROMPT_DIRTRIM="3"
 PROMPT_COMMAND="__prompt"
 
 export PS1 PS2 PROMPT_DIRTRIM PROMPT_COMMAND
-
-if test -x "`which "xtermcontrol" 2>/dev/null`"; then
-   xtermcontrol --bg="#3d3c37" --fg="#e8e5dd"
-fi
