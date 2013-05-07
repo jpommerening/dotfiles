@@ -1,9 +1,5 @@
 test -z "${PROMPT_INFO_RUN}" || return
 
-if [ -f "${HOME}/.host" ]; then
-   . "${HOME}/.host" || return
-fi
-
 __prompt_user_color="38;5;242"
 __prompt_host_color="38;5;141"
 __prompt_path_color="38;5;135"
@@ -26,7 +22,8 @@ __isutf8 () {
 }
 
 __is256color () {
-  return 0
+  local colors=`tput colors 2>/dev/null`
+  test "0$colors" -ge 256
 }
 
 for dotfile in alias ls z; do

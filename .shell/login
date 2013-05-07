@@ -1,0 +1,10 @@
+if test -x `which xprop 2>/dev/null` ; then
+  _locale=`xprop -id $WINDOWID -f WM_LOCALE_NAME 8s -notype WM_LOCALE_NAME 2>/dev/null | \
+           sed 's/WM_LOCALE_NAME = "\(.*\)"/\1/p;d'`
+
+  if test -n "$_locale" ; then
+    LANG="$_locale"
+    export LANG
+  fi
+  unset _locale
+fi

@@ -2,6 +2,11 @@
 set term=xterm-256color
 colors mine
 syntax on
+filetype on
+filetype plugin on
+
+" pathogen
+call pathogen#infect()
 
 " Make vim more useful
 set nocompatible
@@ -78,9 +83,6 @@ set title
 " Back to default encoding
 set encoding=default
 
-" pathogen
-call pathogen#infect()
-
 " neocomplcache
 let g:neocomplcache_enable_at_startup=1
 let g:neocomplcache_enable_smart_case=1
@@ -93,13 +95,7 @@ let g:syntastic_enable_highlighting=1
 
 " slimv/lisp
 let g:lisp_rainbow=1
-" let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load $HOME/.vim/bundle/slimv/slime/start-swank.lisp\""' 
+" let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load $HOME/.vim/bundle/slimv/slime/start-swank.lisp\""'
 
 " powerline
 let g:Powerline_symbols='compatible'
-
-" if &encoding == 'utf-8'
-"   let g:Powerline_symbols='fancy'
-" ele
-"   let g:Powerline_symbols='compatible'
-" endif

@@ -1,6 +1,18 @@
+if test -z "$USER" ; then
+  USER="${USER:-$(whoami 2>/dev/null)}"
+  USER="${USER:-$(id -un 2>/dev/null)}"
+  export USER
+fi
+
+if test -z "$HOST" ; then
+  HOST="${HOST:-$(hostname 2>/dev/null)}"
+  HOST="${HOST:-$(cat /etc/hostname 2>/dev/null)}"
+  HOST="${HOST%%.*}"
+  export HOST
+fi
+
 MAN_POSIXLY_CORRECT="yes. please don't bother me with your questions."
-TERM="xterm-256color"
 EDITOR="vim"
 VISUAL="$EDITOR"
 
-export COLUMNS MAN_POSIXLY_CORRECT TERM EDITOR VISUAL
+export COLUMNS MAN_POSIXLY_CORRECT EDITOR VISUAL
