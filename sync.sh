@@ -8,7 +8,7 @@ GIT_USER="$(git config --get user.name)"
 GIT_EMAIL="$(git config --get user.email)"
 
 function doIt() {
-  rsync --exclude ".git" --exclude ".DS_Store" --exclude "sync.sh" --exclude "README.md" -av . ~
+  rsync --exclude ".git" --exclude ".gitmodules" --exclude ".DS_Store" --exclude "sync.sh" --exclude "README.md" -av . ~
   git config --global user.name "$GIT_USER"
   git config --global user.email "$GIT_EMAIL"
 }
