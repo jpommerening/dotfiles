@@ -1,4 +1,10 @@
-if test -x `which xprop 2>/dev/null` ; then
+if test -x `which defaults 2>/dev/null` ; then
+  _locale=`defaults read "NSGlobalDomain" "AppleLocale"`
+  LANG="$_locale"
+  LC_CTYPE="UTF-8"
+  export LANG LC_CTYPE
+  unset locale
+elif test -x `which xprop 2>/dev/null` ; then
   _locale=`xprop -id $WINDOWID -f WM_LOCALE_NAME 8s -notype WM_LOCALE_NAME 2>/dev/null | \
            sed 's/WM_LOCALE_NAME = "\(.*\)"/\1/p;d'`
 
