@@ -20,7 +20,7 @@ __sourcecode_java_color="38;5;206"
 __sourcecode_php_color="38;5;211"
 
 __isutf8 () {
-  ( locale | grep -qi "UTF[-]\?8" )
+  ( locale | grep -qi "^LC_CTYPE.*UTF[-]\?8$" )
 }
 
 __is256color () {

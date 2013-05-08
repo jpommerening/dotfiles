@@ -1,3 +1,5 @@
+$include /etc/inputrc
+
 # List all matches in case multiple possible completions are possible
 set show-all-if-ambiguous on
 
@@ -47,4 +49,3 @@ set convert-meta off
 # Use Alt/Meta + Delete to delete the preceding word
 "\e[3;3~": kill-word
 
-$include /etc/inputrc
