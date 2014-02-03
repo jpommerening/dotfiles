@@ -181,7 +181,7 @@ PROMPT_COMMAND="__prompt"
 
 export COLUMNS PS1 PS2 PROMPT_DIRTRIM PROMPT_COMMAND
 
-for dotfile in alias ls z; do
+for dotfile in alias ls z completion/{git,npm,grunt}; do
   if test -f "${HOME}/.shell/${dotfile}" ; then
     . "${HOME}/.shell/${dotfile}"
   fi

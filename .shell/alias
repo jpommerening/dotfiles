@@ -5,7 +5,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
+alias ~="cd ~"
 alias -- -="cd -"
 
 # be nice
@@ -13,22 +13,16 @@ alias please=sudo
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
-	colorflag="--color=auto"
-else # OS X `ls`
-	colorflag="-G"
+	__colorflag="--color=auto"
+elif ls -G > /dev/null 2>&1; then # OS X `ls`
+	__colorflag="-G"
 fi
-
-# colors
-alias ls="ls ${colorflag}"
-
-# List all files colorized in long format
-alias ll="ls -l ${colorflag}"
-
-# List all files colorized in long format, including dot files
-alias la="ls -la ${colorflag}"
-
-# Undo a `git push`
-alias unpush="git push -f origin HEAD^:master"
+if test -n "${__colorflag}" ; then
+  alias ls="ls ${colorflag}"
+  alias ll="ls -l ${colorflag}"
+  alias la="ls -la ${colorflag}"
+fi
+unset __colorflag
 
 # OS X has no `md5sum`, so use `md5` as a fallback
 type -t md5sum > /dev/null || alias md5sum="md5"
