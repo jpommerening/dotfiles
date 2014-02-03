@@ -20,7 +20,7 @@ __sourcecode_java_color="38;5;206"
 __sourcecode_php_color="38;5;211"
 
 __isutf8 () {
-  ( locale | grep -qi "^LC_CTYPE.*UTF[-]\?8$" )
+  ( locale | grep -qi "^LC_CTYPE.*UTF[-]\?8\"$" )
 }
 
 __is256color () {
@@ -28,16 +28,21 @@ __is256color () {
   test "0$colors" -ge 256
 }
 
-if __isutf8 ; then
-  __master_icon=→
-  __branch_icon=↳
-  __detach_icon=✗
+__sym () {
+  echo -n '\['"`tput sc`"'\] '
+  echo -n '\['"`tput rc`$1"'\]'
+}
 
-  __status_conflict_icon=⚠
-  __status_addrm_icon=±
-  __status_add_icon=⁺
-  __status_rm_icon=₋
-  __status_unknown_icon=⁇
+if __isutf8 ; then
+  __master_icon=`__sym "→"`
+  __branch_icon=`__sym "↳"`
+  __detach_icon=`__sym "✗"`
+
+  __status_conflict_icon=`__sym "⚠"`
+  __status_addrm_icon=`__sym "±"`
+  __status_add_icon=`__sym "⁺"`
+  __status_rm_icon=`__sym "₋"`
+  __status_unknown_icon=`__sym "⁇"`
 else
   __master_icon=-
   __branch_icon=�
@@ -187,3 +192,4 @@ for dotfile in alias ls z completion/{git,npm,grunt}; do
   fi
 done
 
+undef __isutf8 __is256color __sym
