@@ -192,4 +192,4 @@ for dotfile in alias ls z completion/{git,npm,grunt}; do
   fi
 done
 
-undef __isutf8 __is256color __sym
+unset __isutf8 __is256color __sym
