@@ -183,8 +183,9 @@ __prompt () {
 
 PROMPT_DIRTRIM="3"
 PROMPT_COMMAND="__prompt"
+PYTHONSTARTUP="${HOME}/.shell/pystartup.py"
 
-export COLUMNS PS1 PS2 PROMPT_DIRTRIM PROMPT_COMMAND
+export COLUMNS PS1 PS2 PROMPT_DIRTRIM PROMPT_COMMAND PYTHONSTARTUP
 
 for dotfile in alias ls z completion/{git,npm,grunt}; do
   if test -f "${HOME}/.shell/${dotfile}" ; then

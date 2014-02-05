@@ -18,9 +18,9 @@ elif ls -G > /dev/null 2>&1; then # OS X `ls`
 	__colorflag="-G"
 fi
 if test -n "${__colorflag}" ; then
-  alias ls="ls ${colorflag}"
-  alias ll="ls -l ${colorflag}"
-  alias la="ls -la ${colorflag}"
+  alias ls="ls ${__colorflag}"
+  alias ll="ls -l ${__colorflag}"
+  alias la="ls -la ${__colorflag}"
 fi
 unset __colorflag
 
