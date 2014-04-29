@@ -36,7 +36,10 @@ endif
 " use spaces instead of tabs
 set expandtab
 autocmd FileType make setlocal noexpandtab
-autocmd FileType markdown setlocal spell
+
+" spellcheck my markdown files and git commit messages
+set spelllang=en
+autocmd FileType markdown,gitcommit setlocal spell
 
 if &encoding == 'utf-8'
   set list
