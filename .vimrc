@@ -40,6 +40,7 @@ autocmd FileType markdown setlocal spell
 
 if &encoding == 'utf-8'
   set list
+  set listchars=tab:⇥\ ,trail:·,eol:↵,nbsp:_
   set showbreak=↪
 endif
 
