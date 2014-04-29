@@ -13,9 +13,6 @@
 [submodule ".vim/bundle/neocomplcache"]
 	path = .vim/bundle/neocomplcache
 	url = git://github.com/Shougo/neocomplcache.git
-[submodule ".vim/bundle/powerline"]
-	path = .vim/bundle/powerline
-	url = git://github.com/Lokaltog/vim-powerline.git
 [submodule ".vim/bundle/supertab"]
 	path = .vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
@@ -37,3 +34,6 @@
 [submodule ".vim/bundle/polyglot"]
 	path = .vim/bundle/polyglot
 	url = git://github.com/sheerun/vim-polyglot.git
+[submodule ".vim/bundle/airline"]
+	path = .vim/bundle/airline
+	url = git://github.com/bling/vim-airline.git
