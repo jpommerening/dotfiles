@@ -101,3 +101,7 @@ let g:lisp_rainbow=1
 " airline
 let g:airline_powerline_fonts=1
 let g:airline_theme='wombat'
+
+" emmet
+let g:user_emmet_install_global=0
+autocmd FileType html,css EmmetInstall
