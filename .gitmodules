@@ -34,3 +34,6 @@
 [submodule ".vim/bundle/argtextobj"]
 	path = .vim/bundle/argtextobj
 	url = git://github.com/vim-scripts/argtextobj.vim.git
+[submodule ".vim/bundle/polyglot"]
+	path = .vim/bundle/polyglot
+	url = git://github.com/sheerun/vim-polyglot.git
