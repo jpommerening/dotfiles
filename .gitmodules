@@ -34,3 +34,6 @@
 [submodule ".vim/bundle/emmet"]
 	path = .vim/bundle/emmet
 	url = git://github.com/mattn/emmet-vim.git
+[submodule ".vim/bundle/sleuth"]
+	path = .vim/bundle/sleuth
+	url = git://github.com/tpope/vim-sleuth.git

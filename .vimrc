@@ -24,18 +24,9 @@ set formatoptions=tcqw
 " automatic indent according to block
 set smartindent
 
-" Check environment variable ..
-if strlen($INDENT)
-  " .. to adjust tabbing.
-  exe printf("set tabstop=%i softtabstop=%i shiftwidth=%i", $INDENT, $INDENT, $INDENT)
-else
-  " Make tabs as wide as two spaces
-  set tabstop=2 softtabstop=2 shiftwidth=2
-endif
-
 " use spaces instead of tabs
 set expandtab
-autocmd FileType make setlocal noexpandtab
+autocmd FileType make,gitconfig setlocal noexpandtab
 
 " spellcheck my markdown files and git commit messages
 set spelllang=en
