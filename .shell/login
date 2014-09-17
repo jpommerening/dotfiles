@@ -19,3 +19,6 @@ elif ! test x`which xprop 2>/dev/null` = x ; then
   fi
   unset _locale
 fi
+if test x"$LC_ALL" = x ; then
+  export LC_ALL="$LANG"
+fi
