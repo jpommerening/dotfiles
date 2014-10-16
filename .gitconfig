@@ -5,7 +5,7 @@
 	attributesfile = ~/.gitattributes
 	whitespace = fix,space-before-tab,tab-in-indent,trailing-space
 [color]
-   ui = true
+	ui = true
 [color "branch"]
 	current = 111 ; blueish
 	local = 220 ; yellowish
@@ -19,9 +19,11 @@
 	added = 41
 	changed = 43
 	untracked = 247
+[push]
+	default = "matching"
 [merge]
 	log = true
-   tool = vimdiff
+	tool = vimdiff
 [url "git@github.com:"]
 	insteadOf = "gh:"
 	pushInsteadOf = "github:"
@@ -37,11 +39,11 @@
 
 # Any GitHub repo with my username should be checked out r/w by default
 [url "git@github.com:jpommerening/"]
-  insteadOf = "git://github.com/jpommerening/"
-
+	insteadOf = "git://github.com/jpommerening/"
+	insteadOf = "https://github.com/jpommerening/"
 [user]
-  name = "Jonas Pommerening"
-  email = "jonas@example.com"
+	name = Jonas Pommerening
+	email = jonas@example.com
 
 [include]
-  path = ".gitconfig.local"
+	path = ".gitconfig.local"
