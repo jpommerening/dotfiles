@@ -90,7 +90,11 @@ let g:syntastic_enable_highlighting=1
 
 " slimv/lisp
 let g:lisp_rainbow=1
-" let g:slimv_swank_cmd = '!osascript -e "tell application \"Terminal\" to do script \"sbcl --load $HOME/.vim/bundle/slimv/slime/start-swank.lisp\""'
+
+let os=substitute(system('uname'), '\n', '', '')
+if os == 'Darwin' || os == 'Mac'
+  let g:slimv_osx = 1
+endif
 
 " airline
 let g:airline_powerline_fonts=1
