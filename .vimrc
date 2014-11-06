@@ -1,6 +1,6 @@
 " Enable syntax highlighting
 set term=xterm-256color
-colors mine
+colors azure
 syntax on
 filetype on
 filetype plugin on
