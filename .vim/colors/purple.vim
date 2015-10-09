@@ -9,7 +9,7 @@ hi clear
 if exists("syntax_on")
   syntax reset
 endif
-let g:colors_name = "mine"
+let g:colors_name = "purple"
 hi Normal      ctermfg=252
 hi Comment     term=bold  cterm=bold  ctermfg=242
 hi Constant    term=underline      ctermfg=141
@@ -28,6 +28,10 @@ hi Error       term=reverse  ctermbg=204 ctermfg=235
 hi Todo        term=standout ctermbg=125  ctermfg=0
 hi LineNr      ctermfg=240
 hi Folded      term=standout ctermbg=242 ctermfg=235
+hi DiffAdd     ctermfg=41  ctermbg=22
+hi DiffDelete  ctermfg=167 ctermbg=52
+hi DiffChange  ctermbg=none
+hi DiffText    ctermbg=none
 
 " Common groups that link to default highlighting.
 " You can specify other highlighting easily.
