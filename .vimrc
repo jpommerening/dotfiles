@@ -4,6 +4,7 @@ colors mine
 syntax on
 filetype on
 filetype plugin on
+filetype indent on
 
 " pathogen
 call pathogen#infect()
@@ -23,10 +24,6 @@ set noeol
 set formatoptions=tcqw
 " automatic indent according to block
 set smartindent
-
-" use spaces instead of tabs
-set expandtab
-autocmd FileType make,gitconfig setlocal noexpandtab
 
 " spellcheck my markdown files and git commit messages
 set spelllang=en
@@ -74,6 +71,8 @@ set shortmess=atI
 set showmode
 " Show the filename in the window titlebar
 set title
+" Automatically read file from disk if changed outside vim
+set autoread
 
 " Back to default encoding
 set encoding=default
@@ -102,7 +101,10 @@ let g:airline_theme='wombat'
 
 " emmet
 let g:user_emmet_install_global=0
-autocmd FileType html,css EmmetInstall
+autocmd FileType html,css,xml,xsl,svg EmmetInstall
+
+"markdown
+let g:markdown_fenced_languages=[ 'js=javascript', 'json', 'javascript', 'py=python', 'python', 'rb=ruby', 'ruby', 'vim', 'c', 'cpp', 'java', 'lisp', 'scheme', 'clojure' ]
 
 let s:dir = has('win32') ? '$APPDATA/Vim' : match(system('uname'), "Darwin") > -1 ? '~/Library/Vim' : empty($XDG_DATA_HOME) ? '~/.local/share/vim' : '$XDG_DATA_HOME/vim'
 if isdirectory(expand(s:dir))
