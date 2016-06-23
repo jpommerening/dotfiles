@@ -30,8 +30,8 @@ hi LineNr         ctermfg=240
 hi Folded         ctermfg=235 ctermbg=242 term=standout
 hi DiffAdd        ctermfg=41  ctermbg=22
 hi DiffDelete     ctermfg=167 ctermbg=52
-hi DiffChange     ctermbg=none
-hi DiffText       ctermbg=none
+hi DiffChange     ctermfg=none ctermbg=238
+hi DiffText       ctermfg=226 ctermbg=236
 
 hi link Operator       Delimiter
 hi link Character      String
