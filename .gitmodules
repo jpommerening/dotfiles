@@ -73,3 +73,6 @@
 [submodule ".vim/bundle/colors_duotones"]
 	path = .vim/bundle/colors_duotones
 	url = https://github.com/atelierbram/vim-colors_duotones.git
+[submodule ".vim/bundle/vue"]
+	path = .vim/bundle/vue
+	url = https://github.com/posva/vim-vue.git
