@@ -79,3 +79,6 @@
 [submodule ".vim/bundle/vue"]
 	path = .vim/bundle/vue
 	url = https://github.com/posva/vim-vue.git
+[submodule ".vim/bundle/tern_for_vim"]
+        path = .vim/bundle/tern_for_vim
+        url = https://github.com/ternjs/tern_for_vim.git

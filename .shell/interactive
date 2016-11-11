@@ -187,7 +187,7 @@ PYTHONSTARTUP="${HOME}/.shell/pystartup.py"
 
 export COLUMNS PS1 PS2 PROMPT_DIRTRIM PROMPT_COMMAND PYTHONSTARTUP
 
-for dotfile in alias ls z completion/{git,npm,grunt}; do
+for dotfile in alias ls z brew completion/{git,npm,grunt}; do
   if test -f "${HOME}/.shell/${dotfile}" ; then
     . "${HOME}/.shell/${dotfile}"
   fi
