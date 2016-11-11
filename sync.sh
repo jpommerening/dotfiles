@@ -1,8 +1,6 @@
 #!/bin/bash
 
 cd "$(dirname "$0")"
-git pull
-git submodule update --init
 
 GIT_USER="$(git config --get user.name)"
 GIT_EMAIL="$(git config --get user.email)"

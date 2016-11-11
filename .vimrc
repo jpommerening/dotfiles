@@ -1,10 +1,5 @@
 " Enable syntax highlighting
 set term=xterm-256color
-colors azure
-syntax on
-filetype on
-filetype plugin on
-filetype indent on
 
 " pathogen
 call pathogen#infect()
@@ -77,6 +72,20 @@ set autoread
 " Back to default encoding
 set encoding=default
 
+colorscheme azure
+syntax on
+filetype on
+filetype plugin on
+filetype indent on
+
+hi Normal ctermbg=none
+hi NonText ctermbg=none
+
+nmap <Leader>s :split<CR>
+nmap <Leader>v :vsplit<CR>
+nmap <Leader>s- <Plug>VinegarSplitUp
+nmap <Leader>v- <Plug>VinegarVerticalSplitUp
+
 " neocomplcache
 let g:neocomplcache_enable_at_startup=1
 let g:neocomplcache_enable_smart_case=1
@@ -97,7 +106,6 @@ endif
 
 " airline
 let g:airline_powerline_fonts=1
-let g:airline_theme='wombat'
 
 " emmet
 let g:user_emmet_install_global=0

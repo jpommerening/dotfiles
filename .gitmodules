@@ -3,7 +3,7 @@
 	url = git://github.com/tpope/vim-fugitive.git
 [submodule ".vim/bundle/slimv"]
 	path = .vim/bundle/slimv
-	url = git://github.com/vim-scripts/slimv.vim.git
+	url = git://github.com/kovisoft/slimv.git
 [submodule ".vim/bundle/neocomplcache"]
 	path = .vim/bundle/neocomplcache
 	url = git://github.com/Shougo/neocomplcache.git
@@ -43,3 +43,39 @@
 [submodule ".vim/bundle/markdown"]
 	path = .vim/bundle/markdown
 	url = git://github.com/tpope/vim-markdown
+[submodule ".vim/bundle/monokai"]
+	path = .vim/bundle/monokai
+	url = https://github.com/sickill/vim-monokai.git
+[submodule ".vim/bundle/gruvbox"]
+	path = .vim/bundle/gruvbox
+	url = https://github.com/morhetz/gruvbox.git
+[submodule ".vim/bundle/csexact"]
+	path = .vim/bundle/csexact
+	url = https://github.com/KevinGoodsell/vim-csexact.git
+[submodule ".vim/bundle/vinegar"]
+	path = .vim/bundle/vinegar
+	url = https://github.com/tpope/vim-vinegar.git
+[submodule ".vim/bundle/paredit"]
+	path = .vim/bundle/paredit
+	url = https://github.com/vim-scripts/paredit.vim.git
+[submodule ".vim/bundle/phoenix"]
+	path = .vim/bundle/phoenix
+	url = https://github.com/widatama/vim-phoenix.git
+[submodule ".vim/bundle/lapis-256"]
+	path = .vim/bundle/lapis-256
+	url = https://github.com/andrwb/vim-lapis256.git
+[submodule ".vim/bundle/inori"]
+	path = .vim/bundle/inori
+	url = https://github.com/duythinht/inori.git
+[submodule ".vim/bundle/rainbow_parentheses"]
+	path = .vim/bundle/rainbow_parentheses
+	url = https://github.com/kien/rainbow_parentheses.vim.git
+[submodule ".vim/bundle/gitgutter"]
+	path = .vim/bundle/gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule ".vim/bundle/colors_duotones"]
+	path = .vim/bundle/colors_duotones
+	url = https://github.com/atelierbram/vim-colors_duotones.git
+[submodule ".vim/bundle/vue"]
+	path = .vim/bundle/vue
+	url = https://github.com/posva/vim-vue.git
