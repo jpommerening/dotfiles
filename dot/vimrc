@@ -1,9 +1,6 @@
 " Enable syntax highlighting
 set term=xterm-256color
 
-" pathogen
-call pathogen#infect()
-
 " Make vim more useful
 set nocompatible
 
@@ -80,6 +77,9 @@ filetype indent on
 
 hi Normal ctermbg=none
 hi NonText ctermbg=none
+
+" pathogen
+call pathogen#infect()
 
 nmap <Leader>s :split<CR>
 nmap <Leader>v :vsplit<CR>
