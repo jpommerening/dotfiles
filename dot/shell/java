@@ -37,7 +37,19 @@ if test -x "/usr/libexec/java_home" ; then
         "$bin" -V
         ;;
 
-      *)
+      *) cat <<EOF
+Java version manager
+
+Usage:
+  jvm install <version> [-q]         Download and install <version>, [-q] quietly / without GUI,
+                                     will ask for your password for write access to System folders
+  jvm uninstall <version>            Uninstall <version>
+  jvm use <version>                  Modify JAVA_HOME to use <version>
+  jvm list                           Show available versions
+  jvm exec <version> <command>       Run the Java <command> (java, javac, etc.) with the JDK <version>
+  jvm run <version> <args>           Run java with the given <args>, equivalent to 'jvm exec <version> java <args>'
+
+EOF
         ;;
     esac
   }
@@ -68,7 +80,7 @@ if test -x "/usr/libexec/java_home" ; then
     test -f "$dmg" || jvm_download_url "$url" "$dmg"
     test -d "$dir" || hdiutil attach -quiet -mountpoint "$dir" "$dmg"
 
-    pkg="$(ls -1 "$dir" | grep "\.pkg$" | head -1)"
+    local pkg="$(ls -1 "$dir" | grep "\.pkg$" | head -1)"
 
 
     if test "x$quiet" = "xtrue" ; then
