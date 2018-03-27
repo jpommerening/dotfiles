@@ -31,6 +31,6 @@
   algorithm = histogram
 [push]
   default = current
-  recurseSubmodules = true
+  recurseSubmodules = check
 [merge]
   log = true
