@@ -1,0 +1,43 @@
+#!/bin/sh
+
+GIT_WORK_TREE="$(cd "$(dirname "$0")" && pwd)"
+GIT_DIR="$GIT_WORK_TREE/.git"
+
+if ! test -d "$HOME" ; then
+  echo "Can't read \$HOME directory '$HOME'!" >&2
+  exit 2
+fi
+
+if ! test -d "$GIT_DIR" ; then
+  echo "Can't read git repository at '$GIT_DIR'!" >&2
+  exit 2
+fi
+
+if ! test -d "$GIT_WORK_TREE" ; then
+  echo "Can't read git work tree at '$GIT_WORK_TREE'!" >&2
+  exit 2
+fi
+
+export HOME GIT_DIR GIT_WORK_TREE
+
+INDEX_FMT='%o %040s\t%s\n'
+
+git ls-files -s dot | while read mode hash n path ; do
+  p="$HOME/.${path#dot/}"
+  if test -f "$p" ; then
+    m="$(stat -f '%p' "$p")"
+    h="$(git hash-object -t blob --path="$path" "$p")"
+    if ! test "x$h" = "x$hash" ; then
+      git cat-file blob "$hash" > "$p~dot"
+      mv "$p~dot" "$p"
+    fi
+    if ! test "x$m" = "x$mode" ; then
+      chmod "$mode" "$p"
+    fi
+  else
+    mkdir -p `dirname "$p"`
+    git cat-file > "$p~dot"
+    chmod "$mode" "$p~dot"
+    mv "$p~dot" "$p"
+  fi
+done
