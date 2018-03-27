@@ -36,7 +36,7 @@ git ls-files -s dot | while read mode hash n path ; do
     fi
   else
     mkdir -p `dirname "$p"`
-    git cat-file > "$p~dot"
+    git cat-file blob "$hash" > "$p~dot"
     chmod "$mode" "$p~dot"
     mv "$p~dot" "$p"
   fi

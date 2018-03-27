@@ -1,0 +1,103 @@
+#!/bin/bash
+
+if test -x "/usr/libexec/java_home" ; then
+  jvm () {
+    local bin="/usr/libexec/java_home"
+    local cmd="$1"
+    shift 1
+
+    case "$cmd" in
+      use|exec|run|i|install)
+        local v="$1"
+        shift 1
+        ;;
+    esac
+
+    case "$cmd" in
+      exec)
+        "$bin" -v "$v" --exec "$@"
+        return "$?"
+        ;;
+      run)
+        "$bin" -v "$v" --exec "java" "$@"
+        return "$?"
+        ;;
+
+      use)
+        jvm_use_version "$v" "$@"
+        ;;
+      i|install)
+        jvm_install_version "$v" "$@"
+        ;;
+      uninstall)
+        echo "Operation not supported!" >&2
+        return 1
+        ;;
+      l|list)
+        "$bin" -V
+        ;;
+
+      *)
+        ;;
+    esac
+  }
+
+  jvm_use_version () {
+    JAVA_HOME=`"$bin" -v "$v"`
+    test "$?" -eq 0 || return 1
+    echo "Now using Java $v ($JAVA_HOME)"
+    export JAVA_HOME
+  }
+
+  jvm_install_version () {
+    local version=""
+    local hash=""
+    local file=""
+
+    if test "x$2" = "x-q" ; then
+      local quiet="true"
+    fi
+
+  ( set -e
+    read version hash file < <(jvm_resolve_version "$1")
+
+    local url="http://download.oracle.com/otn-pub/java/jdk/$version/$hash/$file"
+    local dmg="${TMPDIR:-/tmp}/$file"
+    local dir="${TMPDIR:-/tmp}/jvm-$version"
+
+    test -f "$dmg" || jvm_download_url "$url" "$dmg"
+    test -d "$dir" || hdiutil attach -quiet -mountpoint "$dir" "$dmg"
+
+    pkg="$(ls -1 "$dir" | grep "\.pkg$" | head -1)"
+
+
+    if test "x$quiet" = "xtrue" ; then
+      sudo installer -target / -pkg "$dir/$pkg"
+    else
+      echo -n "Installing ${pkg%.pkg} ... "
+      open -W "$dir/$pkg"
+      echo "done"
+    fi
+
+    hdiutil detach -quiet "$dir"
+    jvm_use_version "$version" )
+  }
+
+  jvm_resolve_version () {
+    ( grep "^$1\(\.[0-9]\| \)" | head -1 | cut -d" " -f2- ) <<EOT
+9.0.4 9.0.4+11 c2514751926b4512b076cc82f959763f jdk-9.0.4_osx-x64_bin.dmg
+1.8 8u161-b12 2f38c3b165be4555a1fa6e98c45e0808 jdk-8u161-macosx-x64.dmg
+EOT
+  }
+
+  jvm_download_url () {
+    local url="$1"
+    local file="$2"
+
+    echo "Downloading $url ..."
+
+    curl -#L \
+      -H "Cookie: oraclelicense=accept-securebackup-cookie" \
+      -o "$file" "$url"
+  }
+fi

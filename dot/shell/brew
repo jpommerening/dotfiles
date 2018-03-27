@@ -1,8 +1,0 @@
-if which brew >/dev/null 2>&1 ; then
-  NVM_HOME="$HOME/."
-  NVM_PREFIX="$(brew --prefix nvm 2>/dev/null)"
-
-  if [ -n "$NVM_PREFIX" -a -d "$NVM_PREFIX" ]; then
-    source "$NVM_PREFIX/nvm.sh"
-  fi
-fi

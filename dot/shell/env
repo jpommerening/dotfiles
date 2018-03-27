@@ -13,8 +13,9 @@ if test -z "$HOST" ; then
   export HOST
 fi
 
-MAN_POSIXLY_CORRECT="yes. please don't bother me with your questions."
+MAN_POSIXLY_CORRECT="yes"
 EDITOR="vim"
+PAGER="less"
 VISUAL="$EDITOR"
 
-export MAN_POSIXLY_CORRECT EDITOR VISUAL
+export MAN_POSIXLY_CORRECT EDITOR PAGER VISUAL

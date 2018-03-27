@@ -1,0 +1,4 @@
+if test -d "/usr/local/opt/nvm" ; then
+  NVM_DIR="/usr/local/opt/nvm"
+  source "$NVM_DIR/nvm.sh"
+fi
