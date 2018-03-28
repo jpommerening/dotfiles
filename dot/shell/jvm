@@ -1,13 +1,15 @@
 #!/bin/bash
 
-if test -x "/usr/libexec/java_home" ; then
+JAVA_HOME_BIN="/usr/libexec/java_home"
+
+if test -x "$JAVA_HOME_BIN" ; then
+
   jvm () {
-    local bin="/usr/libexec/java_home"
     local cmd="$1"
     shift 1
 
     case "$cmd" in
-      use|exec|run|i|install)
+      use|exec|run|i|install|uninstall)
         local v="$1"
         shift 1
         ;;
@@ -15,11 +17,11 @@ if test -x "/usr/libexec/java_home" ; then
 
     case "$cmd" in
       exec)
-        "$bin" -v "$v" --exec "$@"
+        "$JAVA_HOME_BIN" -v "$v" --exec "$@"
         return "$?"
         ;;
       run)
-        "$bin" -v "$v" --exec "java" "$@"
+        "$JAVA_HOME_BIN" -v "$v" --exec "java" "$@"
         return "$?"
         ;;
 
@@ -30,11 +32,10 @@ if test -x "/usr/libexec/java_home" ; then
         jvm_install_version "$v" "$@"
         ;;
       uninstall)
-        echo "Operation not supported!" >&2
-        return 1
+        jvm_uninstall_version "$v" "$@"
         ;;
       l|list)
-        "$bin" -V
+        "$JAVA_HOME_BIN" -V
         ;;
 
       *) cat <<EOF
@@ -55,7 +56,8 @@ EOF
   }
 
   jvm_use_version () {
-    JAVA_HOME=`"$bin" -v "$v"`
+    local version="$1"
+    JAVA_HOME=`"$JAVA_HOME_BIN" -v "$version"`
     test "$?" -eq 0 || return 1
     echo "Now using Java $v ($JAVA_HOME)"
     export JAVA_HOME
@@ -70,9 +72,9 @@ EOF
       local quiet="true"
     fi
 
-  ( set -e
     read version hash file < <(jvm_resolve_version "$1")
 
+  ( set -e
     local url="http://download.oracle.com/otn-pub/java/jdk/$version/$hash/$file"
     local dmg="${TMPDIR:-/tmp}/$file"
     local dir="${TMPDIR:-/tmp}/jvm-$version"
@@ -80,7 +82,7 @@ EOF
     test -f "$dmg" || jvm_download_url "$url" "$dmg"
     test -d "$dir" || hdiutil attach -quiet -mountpoint "$dir" "$dmg"
 
-    local pkg="$(ls -1 "$dir" | grep "\.pkg$" | head -1)"
+    local pkg=`ls -1 "$dir" | grep "\.pkg$" | head -1`
 
 
     if test "x$quiet" = "xtrue" ; then
@@ -91,14 +93,61 @@ EOF
       echo "done"
     fi
 
-    hdiutil detach -quiet "$dir"
-    jvm_use_version "$version" )
+    hdiutil detach -quiet "$dir" )
+
+    jvm_use_version "$1"
+  }
+
+  jvm_uninstall_version () {
+    local version="$1"
+    local java_home=""
+
+    java_home=`"$JAVA_HOME_BIN" -v "$version"`
+    test "$?" -eq 0 || return 1
+
+
+  ( set -e
+    local line=""
+    local pkg=""
+    local volume=""
+    local location=""
+
+    pkgutil --pkgs='com\.oracle\.jdk.*' | while read pkg ; do
+      while read line ; do
+        case "$line" in
+          package-id:*)
+            pkg="${line#*: }"
+            ;;
+          volume:*)
+            volume="${line#*: }"
+            ;;
+          location:*)
+            location="${line#*: }"
+            ;;
+        esac
+      done < <(pkgutil --pkg-info "$pkg")
+
+      path="$volume$location"
+
+      if ! test -d "$path" -a "${java_home#$path}" = "$java_home" ; then
+        sudo echo "Uninstalling package $pkg ($path)"
+        pushd "$path" >/dev/null
+        pkgutil --only-files --files "$pkg" | tr '\n' '\0' | xargs -n 1 -0 sudo rm -f
+        sudo rm -f Contents/MacOS/lib*.dylib
+        pkgutil --only-dirs --files "$pkg" | tail -r | tr '\n' '\0' | xargs -n 1 -0 sudo rmdir
+        popd >/dev/null
+        sudo rmdir "$path"
+        sudo pkgutil --forget "$pkg"
+      fi
+    done )
   }
 
   jvm_resolve_version () {
     ( grep "^$1\(\.[0-9]\| \)" | head -1 | cut -d" " -f2- ) <<EOT
+10 10+46 76eac37278c24557a3c4199677f19b62 jdk-10_osx-x64_bin.dmg
 9.0.4 9.0.4+11 c2514751926b4512b076cc82f959763f jdk-9.0.4_osx-x64_bin.dmg
-1.8 8u161-b12 2f38c3b165be4555a1fa6e98c45e0808 jdk-8u161-macosx-x64.dmg
+1.8.0_162 8u162-b12 0da788060d494f5095bf8624735fa2f1 jdk-8u162-macosx-x64.dmg
+1.8.0_161 8u161-b12 2f38c3b165be4555a1fa6e98c45e0808 jdk-8u161-macosx-x64.dmg
 EOT
   }
 
