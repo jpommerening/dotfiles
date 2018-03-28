@@ -78,31 +78,10 @@ filetype indent on
 hi Normal ctermbg=none
 hi NonText ctermbg=none
 
-" pathogen
-call pathogen#infect()
-
 nmap <Leader>s :split<CR>
 nmap <Leader>v :vsplit<CR>
 nmap <Leader>s- <Plug>VinegarSplitUp
 nmap <Leader>v- <Plug>VinegarVerticalSplitUp
-
-" neocomplcache
-let g:neocomplcache_enable_at_startup=1
-let g:neocomplcache_enable_smart_case=1
-let g:neocomplcache_enable_camel_case_completion=1
-
-" syntastic
-let g:syntastic_check_on_open=1
-let g:syntastic_enable_signs=0
-let g:syntastic_enable_highlighting=1
-
-" slimv/lisp
-let g:lisp_rainbow=1
-
-let os=substitute(system('uname'), '\n', '', '')
-if os == 'Darwin' || os == 'Mac'
-  let g:slimv_osx = 1
-endif
 
 " airline
 let g:airline_powerline_fonts=1
@@ -125,7 +104,43 @@ if isdirectory(expand(s:dir))
   if exists('+undodir') && &undodir =~# '^\.\%(,\|$\)'
     let &undodir = expand(s:dir) . '/undo//,' . &undodir
   endif
+
+  call plug#begin(expand(s:dir) . '/plugin/')
+
 endif
 if exists('+undofile')
   set undofile
+endif
+
+if exists('g:loaded_plug')
+  " Plug 'kovisoft/slimv'
+  " Plug 'Shougo/neocomplcache'
+  " Plug 'ervandew/supertab'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-markdown'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-sensible'
+  Plug 'tpope/vim-sleuth'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-vinegar'
+  " Plug 'tomtom/tcomment_vim'
+  Plug 'vim-scripts/argtextobj.vim'
+  Plug 'vim-scripts/paredit.vim'
+  " Plug 'sheerun/vim-polyglot'
+  Plug 'bling/vim-airline'
+  Plug 'mattn/emmet-vim'
+  " Plug 'kien/ctrlp.vim'
+  " Plug 'sickill/vim-monokai'
+  " Plug 'morhetz/gruvbox'
+  " Plug 'KevinGoodsell/vim-csexact'
+  " Plug 'widatama/vim-phoenix'
+  " Plug 'andrwb/vim-lapis256'
+  " Plug 'duythinht/inori'
+  Plug 'kien/rainbow_parentheses.vim'
+  " Plug 'airblade/vim-gitgutter'
+  " Plug 'atelierbram/vim-colors_duotones'
+  Plug 'posva/vim-vue'
+  " Plug 'ternjs/tern_for_vim'
+
+  call plug#end()
 endif
