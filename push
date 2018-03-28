@@ -21,23 +21,29 @@ fi
 export HOME GIT_DIR GIT_WORK_TREE
 
 INDEX_FMT='%o %040s\t%s\n'
+PATHS=(
+  "dot/:$HOME/."
+  "completion/:/usr/local/etc/bash_completion.d/"
+)
 
-git ls-files -s dot | while read mode hash n path ; do
-  p="$HOME/.${path#dot/}"
-  if test -f "$p" ; then
-    m="$(stat -f '%p' "$p")"
-    h="$(git hash-object -t blob --path="$path" "$p")"
-    if ! test "x$h" = "x$hash" ; then
+for prefix in "${PATHS[@]}" ; do
+  git ls-files -s "${prefix%%:*}" | while read mode hash n path ; do
+    p="${prefix#*:}${path#${prefix%%:*}}"
+    if test -f "$p" ; then
+      m="$(stat -f '%p' "$p")"
+      h="$(git hash-object -t blob --path="$path" "$p")"
+      if ! test "x$h" = "x$hash" ; then
+        git cat-file blob "$hash" > "$p~dot"
+        mv "$p~dot" "$p"
+      fi
+      if ! test "x$m" = "x$mode" ; then
+        chmod "$mode" "$p"
+      fi
+    else
+      mkdir -p `dirname "$p"`
       git cat-file blob "$hash" > "$p~dot"
+      chmod "$mode" "$p~dot"
       mv "$p~dot" "$p"
     fi
-    if ! test "x$m" = "x$mode" ; then
-      chmod "$mode" "$p"
-    fi
-  else
-    mkdir -p `dirname "$p"`
-    git cat-file blob "$hash" > "$p~dot"
-    chmod "$mode" "$p~dot"
-    mv "$p~dot" "$p"
-  fi
+  done
 done

@@ -72,7 +72,7 @@ PYTHONSTARTUP="${HOME}/.shell/pystartup.py"
 
 export COLUMNS PS1 PS2 PYTHONSTARTUP
 
-for dotfile in alias ls z prompt brew completion/{git,npm,grunt}; do
+for dotfile in alias ls z prompt nvm jvm completion/{git,npm}; do
   if test -f "${HOME}/.shell/${dotfile}" ; then
     . "${HOME}/.shell/${dotfile}"
   fi
