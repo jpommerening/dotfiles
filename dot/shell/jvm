@@ -132,9 +132,9 @@ EOF
       if ! test -d "$path" -a "${java_home#$path}" = "$java_home" ; then
         sudo echo "Uninstalling package $pkg ($path)"
         pushd "$path" >/dev/null
-        pkgutil --only-files --files "$pkg" | tr '\n' '\0' | xargs -n 1 -0 sudo rm -f
+        pkgutil --only-files --files "$pkg" | tr '\n' '\0' | xargs -n 20 -0 sudo rm -f
         sudo rm -f Contents/MacOS/lib*.dylib
-        pkgutil --only-dirs --files "$pkg" | tail -r | tr '\n' '\0' | xargs -n 1 -0 sudo rmdir
+        pkgutil --only-dirs --files "$pkg" | tail -r | tr '\n' '\0' | xargs -n 20 -0 sudo rmdir
         popd >/dev/null
         sudo rmdir "$path"
         sudo pkgutil --forget "$pkg"
